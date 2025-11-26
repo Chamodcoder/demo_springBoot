@@ -1,7 +1,9 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.UserDTO;
+import com.example.demo.repo.UserRepo;
 import com.example.demo.service.UserService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +15,10 @@ import java.util.List;
 public class UserController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private UserRepo userRepo;
+    @Autowired
+    private ModelMapper modelMapper;
 
     @GetMapping("/getusers")
     public List<UserDTO> getUsers(){
@@ -24,5 +30,15 @@ public class UserController {
         return userService.saveUser(userDTO);
     }
 
+    @PutMapping("/updateuser")
+    public UserDTO updateUser(@RequestBody UserDTO userDTO) {
+        return userService.updateUser(userDTO);
+    }
+
+    @DeleteMapping("/deleteuser")
+    public String deleteUser(@RequestBody UserDTO userDTO){
+        return userService.deleteUser(userDTO);
+    }
 
 }
+
